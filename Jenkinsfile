@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     triggers {
         cron('H 2 * * *')
     }
@@ -8,7 +12,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                deleteDir()
+                git branch: 'main', url: 'https://github.com/gabrieldigon/jenkins-docker-pipeline.git'
             }
         }
 
